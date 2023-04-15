@@ -20,11 +20,12 @@ export default function Review({ snapshotDate, contractAddress }: Props) {
         alignItems="center"
         justifyContent="center"
       >
-        {snapshotDate?.toISOString()}
-        <DownloadCSVButton
-          contractAddress="0xcE6E3a14B5F8cE2b05aF0F117Dc922769779aA3b"
-          snapshotDate="2023-03-01T00:00:00Z"
-        />
+        {(snapshotDate && contractAddress )&&
+          <DownloadCSVButton
+            contractAddress={contractAddress}
+            snapshotDate={snapshotDate?.toISOString()}
+          />
+        }
       </Box>
     </React.Fragment>
   );
