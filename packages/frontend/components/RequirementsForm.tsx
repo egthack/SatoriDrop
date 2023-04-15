@@ -19,9 +19,10 @@ type Props = {
   setSnapshotDate: Dispatch<SetStateAction<Date | null>>;
   setContractAddress: React.Dispatch<React.SetStateAction<string>>;
   setTokenAmount: React.Dispatch<React.SetStateAction<number>>;
+  setPriority: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function RequirementsForm({ setTokenType, setSnapshotDate, setContractAddress, setTokenAmount }: Props) {
+export default function RequirementsForm({ setTokenType, setSnapshotDate, setContractAddress, setTokenAmount, setPriority }: Props) {
   const [elements, setElements] = useState<JSX.Element[]>([]);
   
   const handleTokenType = (event: any) => {
@@ -38,6 +39,10 @@ export default function RequirementsForm({ setTokenType, setSnapshotDate, setCon
 
   const handleTokenAmount = (event: any) => {
     setTokenAmount(event.target.value);
+  };
+
+  const handlePriority = (event: any) => {
+    setPriority(event.target.value);
   };
 
   const handleAdd = () => {
@@ -96,7 +101,7 @@ export default function RequirementsForm({ setTokenType, setSnapshotDate, setCon
               </Grid>
               <Box marginBottom={2}>
                 <div>Requirement Priority</div>
-                <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="on" />
+                <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="on" onChange={handlePriority} />
               </Box>
             </CardContent>
           </Card>

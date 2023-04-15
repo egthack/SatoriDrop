@@ -16,12 +16,12 @@ import Review from '../components/Review';
 
 const steps = ['Airdrop Requirements', 'Calculating Importance', 'Download Results'];
 
-function getStepContent(step: number, tokenType: "ERC20" | "ERC721", snapshotDate: Date | null, contractAddress: string, tokenAmount: number, setTokenType:React.Dispatch<React.SetStateAction<"ERC20" | "ERC721">>,  setSnapshotDate: React.Dispatch<React.SetStateAction<Date | null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>, setTokenAmount:React.Dispatch<React.SetStateAction<number>>) {
+function getStepContent(step: number, tokenType: "ERC20" | "ERC721", snapshotDate: Date | null, contractAddress: string, tokenAmount: number,priority: number, setTokenType:React.Dispatch<React.SetStateAction<"ERC20" | "ERC721">>,  setSnapshotDate: React.Dispatch<React.SetStateAction<Date | null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>, setTokenAmount:React.Dispatch<React.SetStateAction<number>>, setPriority:React.Dispatch<React.SetStateAction<number>>) {
   switch (step) {
     case 0:
-      return <RequirementsForm setTokenType={setTokenType} setSnapshotDate={setSnapshotDate} setContractAddress={setContractAddress} setTokenAmount={setTokenAmount} />;
+      return <RequirementsForm setTokenType={setTokenType} setSnapshotDate={setSnapshotDate} setContractAddress={setContractAddress} setTokenAmount={setTokenAmount} setPriority={setPriority} />;
     case 1:
-      return <Confirm tokenType={tokenType} snapshotDate={snapshotDate} contractAddress={contractAddress} tokenAmount={tokenAmount} />;
+      return <Confirm tokenType={tokenType} snapshotDate={snapshotDate} contractAddress={contractAddress} tokenAmount={tokenAmount} priority={priority} />;
     case 2:
       return <Review snapshotDate={snapshotDate} contractAddress={contractAddress} />;
     default:
@@ -36,7 +36,8 @@ export default function Checkout() {
   const [tokenType, setTokenType] = useState<"ERC20" | "ERC721">("ERC721");
   const [snapshotDate, setSnapshotDate] = useState<Date | null>(new Date);
   const [contractAddress, setContractAddress] = useState("");
-  const [tokenAmount, setTokenAmount] = useState<number>(0)
+  const [tokenAmount, setTokenAmount] = useState<number>(0);
+  const [priority, setPriority] = useState<number>(50);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -87,7 +88,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, tokenType, snapshotDate, contractAddress, tokenAmount, setTokenType, setSnapshotDate, setContractAddress, setTokenAmount)}
+              {getStepContent(activeStep, tokenType, snapshotDate, contractAddress, tokenAmount, priority, setTokenType, setSnapshotDate, setContractAddress, setTokenAmount, setPriority)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
