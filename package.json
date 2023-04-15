@@ -1,0 +1,15 @@
+{
+  "name": "SatoriDrop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/egthack/SatoriDrop.git",
+  "author": "tadashim <ma.tadashi@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/frontend",
+      "packages/backend"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "satoridrop-backend",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "dotenv-load ts-node-dev --transpile-only --no-notify ./app.ts",
+    "build": "yarn tsc",
+    "start": "dotenv-load node build/app.js"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.7.12",
+    "cross-fetch": "^3.1.5",
+    "dotenv-load": "^2.0.1",
+    "express": "^4.18.2",
+    "graphql": "^16.6.0",
+    "ts-node-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.15.11",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
