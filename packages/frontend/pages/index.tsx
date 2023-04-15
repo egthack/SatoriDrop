@@ -18,10 +18,10 @@ import DownloadCSVButton from "@/components/DownloadCSVButton";
 
 const steps = ['Airdrop Requirements', 'Calculating Importance', 'Download Results'];
 
-function getStepContent(step: number, requirements: Requirement[], setRequirements: React.Dispatch<React.SetStateAction<Requirement[]>>) {
+function getStepContent(step: number, setSnapshotDate: React.Dispatch<React.SetStateAction<null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>) {
   switch (step) {
     case 0:
-      return <RequirementsForm />;
+      return <RequirementsForm setSnapshotDate={setSnapshotDate} setContractAddress={setContractAddress} />;
     case 1:
       return <Confirm />;
     case 2:
@@ -35,7 +35,6 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [requirements, setRequirements] = useState<Requirement[]>([]);
   const [snapshotDate, setSnapshotDate] = useState(null);
   const [contractAddress, setContractAddress] = useState("");
 
@@ -88,7 +87,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, requirements, setRequirements)}
+              {getStepContent(activeStep, setSnapshotDate, setContractAddress)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -100,22 +99,24 @@ export default function Checkout() {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  {activeStep === steps.length - 1 ? 'complete' : 'Next'}
                 </Button>
 
                 <>
-                  <DownloadCSVButton
+                  {/* <DownloadCSVButton
                   contractAddress="0xcE6E3a14B5F8cE2b05aF0F117Dc922769779aA3b"
                   snapshotDate="2023-03-01T00:00:00Z"
-                  />
+                  /> */}
+                  {/* {(snapshotDate && contractAddress) && <DownloadCSVButton
+                    contractAddress={contractAddress}
+                    snapshotDate={snapshotDate}
+                  />} */}
                 </>
               </Box>
             </React.Fragment>
           )}
         </Paper>
       </Container>
-      <div>ここら辺にCSVダウンロードボタンをおいてみる？</div>
-
     </ThemeProvider>
   );
 }

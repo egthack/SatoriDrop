@@ -6,13 +6,13 @@ export default function Confirm() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        入力したデータに問題がないか確認する
+        Confirm your Airdrop Requirement
       </Typography>
-      <div>ずらりと先ほど指定した条件が出てくる</div>
-      <div>問題がなければこの下にあるボタンを押して、AirStackのAPIを叩いて、必要な情報を取得する</div>
-      <button />
-      <div>計算処理が終わるまでグルグルが表示される</div>
-      <div>計算処理が終わったら右下の”Next”がアクティブになる</div>
+      <h2>No.1</h2>
+      <div>SnapshotDate: 2023-03-01T00:00:00Z</div>
+      <div>Token Contract: 0xcE6E3a14B5F8cE2b05aF0F117Dc922769779aA3b</div>
+      <div>Amount: 1</div>
+      <div>Priority: 50</div>
     </React.Fragment>
   );
 }

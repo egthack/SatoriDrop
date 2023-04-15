@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -13,18 +13,14 @@ import Slider from '@mui/material/Slider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Requirement } from "../types/Requirement"
 
-export default function RequirementsForm() {
+type Props = {
+  setSnapshotDate: Dispatch<SetStateAction<null>>;
+  setContractAddress: React.Dispatch<React.SetStateAction<string>>
+};
+
+export default function RequirementsForm({ setSnapshotDate, setContractAddress }: Props) {
   const [elements, setElements] = useState<JSX.Element[]>([]);
-  const [tokenType, setTokenType] = useState("");
-  const [contractAddress, setContractAddress] = useState("");
-  const [snapshotDate, setSnapshotDate] = useState(null);
-  const [priority, setPriority] = useState(50);
-
-  const handleTokenType = (event: any) => {
-    setTokenType(event.target.value);
-  }
   
   const handleAdd = () => {
     const id = elements.length;
@@ -39,7 +35,6 @@ export default function RequirementsForm() {
                 <FormControl>
                   <RadioGroup
                     row
-                    onChange={handleTokenType}
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
                   >
