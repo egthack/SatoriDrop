@@ -8,7 +8,7 @@ type Props = Pick<Requirement, "contractAddress" | "snapshotDate">
 
 const DownloadCSVButton = (props: Props) => {
   const [errorMessage, setErrorMessage] = useState("")
-  const API_URL = 'http://13.231.201.123:3000/api';
+  const API_URL = process.env["API_URL"] ?? 'http://localhost:3000/api';
 
   const timeout = (ms: number) => {
     return new Promise(resolve => setTimeout(resolve, ms));

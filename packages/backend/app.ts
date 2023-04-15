@@ -5,7 +5,7 @@ import { getAllHolderByToken, getHolderByToken } from "./utils/holder"
 import { getTokenBalance, getTokenTransferHistory } from "./utils/queries"
 
 const app = express()
-const PORT = 3000
+const PORT = process.env["PORT"] ?? 3000
 const API_URL = "https://api.airstack.xyz/gql"
 const token = process.env["AIR_STACK_KEY"]
 if (!token) {
