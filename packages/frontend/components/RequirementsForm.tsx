@@ -15,13 +15,18 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 type Props = {
+  setTokenType: React.Dispatch<React.SetStateAction<"ERC20" | "ERC721">>;
   setSnapshotDate: Dispatch<SetStateAction<Date | null>>;
   setContractAddress: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function RequirementsForm({ setSnapshotDate, setContractAddress }: Props) {
+export default function RequirementsForm({ setTokenType, setSnapshotDate, setContractAddress }: Props) {
   const [elements, setElements] = useState<JSX.Element[]>([]);
   
+  const handleTokenType = (event: any) => {
+    setTokenType(event.target.value);
+  };
+
   const handleSnapshotDate = (date: Date | null) => {
     setSnapshotDate(date);
   };
@@ -45,6 +50,7 @@ export default function RequirementsForm({ setSnapshotDate, setContractAddress }
                     row
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
+                    onChange={handleTokenType}
                   >
                     <FormControlLabel value="ERC20" control={<Radio />} label="ERC20" />
                     <FormControlLabel value="ERC721" control={<Radio />} label="ERC721" />

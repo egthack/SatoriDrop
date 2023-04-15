@@ -16,12 +16,12 @@ import Review from '../components/Review';
 
 const steps = ['Airdrop Requirements', 'Calculating Importance', 'Download Results'];
 
-function getStepContent(step: number, snapshotDate: Date | null, contractAddress: string, setSnapshotDate: React.Dispatch<React.SetStateAction<Date | null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>) {
+function getStepContent(step: number, tokenType: "ERC20" | "ERC721", snapshotDate: Date | null, contractAddress: string, setTokenType:React.Dispatch<React.SetStateAction<"ERC20" | "ERC721">>,  setSnapshotDate: React.Dispatch<React.SetStateAction<Date | null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>) {
   switch (step) {
     case 0:
-      return <RequirementsForm setSnapshotDate={setSnapshotDate} setContractAddress={setContractAddress} />;
+      return <RequirementsForm setTokenType={setTokenType} setSnapshotDate={setSnapshotDate} setContractAddress={setContractAddress} />;
     case 1:
-      return <Confirm snapshotDate={snapshotDate} contractAddress={contractAddress} />;
+      return <Confirm tokenType={tokenType} snapshotDate={snapshotDate} contractAddress={contractAddress} />;
     case 2:
       return <Review snapshotDate={snapshotDate} contractAddress={contractAddress} />;
     default:
@@ -33,6 +33,7 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [tokenType, setTokenType] = useState<"ERC20" | "ERC721">("ERC721");
   const [snapshotDate, setSnapshotDate] = useState<Date | null>(new Date);
   const [contractAddress, setContractAddress] = useState("");
 
@@ -85,7 +86,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, snapshotDate, contractAddress, setSnapshotDate, setContractAddress)}
+              {getStepContent(activeStep, tokenType, snapshotDate, contractAddress, setTokenType, setSnapshotDate, setContractAddress)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
