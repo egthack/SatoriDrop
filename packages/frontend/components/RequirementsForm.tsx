@@ -15,13 +15,22 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 type Props = {
-  setSnapshotDate: Dispatch<SetStateAction<null>>;
-  setContractAddress: React.Dispatch<React.SetStateAction<string>>
+  setSnapshotDate: Dispatch<SetStateAction<Date | null>>;
+  setContractAddress: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function RequirementsForm({ setSnapshotDate, setContractAddress }: Props) {
   const [elements, setElements] = useState<JSX.Element[]>([]);
   
+  const handleSnapshotDate = (date: Date | null) => {
+    setSnapshotDate(date);
+  };
+
+  const handleContractAddress = (event: any) => {
+    console.log(event.target.value);
+    setContractAddress(event.target.value);
+  };
+
   const handleAdd = () => {
     const id = elements.length;
     const newElement = (
@@ -48,6 +57,7 @@ export default function RequirementsForm({ setSnapshotDate, setContractAddress }
                   label="Contract Address"
                   fullWidth
                   required
+                  onChange={handleContractAddress}
                 />
               </Box>
               <Grid container spacing={3}>
@@ -55,7 +65,9 @@ export default function RequirementsForm({ setSnapshotDate, setContractAddress }
                   <Box marginBottom={2}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
+                        defaultValue={null}
                         label="Select a snapshot date"
+                        onChange={handleSnapshotDate}
                       />
                     </LocalizationProvider>
                   </Box>

@@ -13,19 +13,17 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import RequirementsForm from '../components/RequirementsForm';
 import Confirm from '../components/Confirm';
 import Review from '../components/Review';
-import { Requirement } from "../types/Requirement"
-import DownloadCSVButton from "@/components/DownloadCSVButton";
 
 const steps = ['Airdrop Requirements', 'Calculating Importance', 'Download Results'];
 
-function getStepContent(step: number, setSnapshotDate: React.Dispatch<React.SetStateAction<null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>) {
+function getStepContent(step: number, snapshotDate: Date | null, contractAddress: string, setSnapshotDate: React.Dispatch<React.SetStateAction<Date | null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>) {
   switch (step) {
     case 0:
       return <RequirementsForm setSnapshotDate={setSnapshotDate} setContractAddress={setContractAddress} />;
     case 1:
-      return <Confirm />;
+      return <Confirm snapshotDate={snapshotDate} contractAddress={contractAddress} />;
     case 2:
-      return <Review />;
+      return <Review snapshotDate={snapshotDate} contractAddress={contractAddress} />;
     default:
       throw new Error('Unknown step');
   }
@@ -35,7 +33,7 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [snapshotDate, setSnapshotDate] = useState(null);
+  const [snapshotDate, setSnapshotDate] = useState<Date | null>(new Date);
   const [contractAddress, setContractAddress] = useState("");
 
   const handleNext = () => {
@@ -87,7 +85,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, setSnapshotDate, setContractAddress)}
+              {getStepContent(activeStep, snapshotDate, contractAddress, setSnapshotDate, setContractAddress)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -101,17 +99,6 @@ export default function Checkout() {
                 >
                   {activeStep === steps.length - 1 ? 'complete' : 'Next'}
                 </Button>
-
-                <>
-                  {/* <DownloadCSVButton
-                  contractAddress="0xcE6E3a14B5F8cE2b05aF0F117Dc922769779aA3b"
-                  snapshotDate="2023-03-01T00:00:00Z"
-                  /> */}
-                  {/* {(snapshotDate && contractAddress) && <DownloadCSVButton
-                    contractAddress={contractAddress}
-                    snapshotDate={snapshotDate}
-                  />} */}
-                </>
               </Box>
             </React.Fragment>
           )}
