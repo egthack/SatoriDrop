@@ -27,7 +27,6 @@ export default function RequirementsForm({ setSnapshotDate, setContractAddress }
   };
 
   const handleContractAddress = (event: any) => {
-    console.log(event.target.value);
     setContractAddress(event.target.value);
   };
 
