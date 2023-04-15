@@ -7,7 +7,7 @@ import { useState } from 'react';
 type Props = Pick<Requirement, "contractAddress" | "snapshotDate">
 
 const DownloadCSVButton = (props: Props) => {
-  const [errorMessage, setErrorMessage] = useState("")
+  const [message, setMessage] = useState("")  
   const API_URL = process.env["NEXT_PUBLIC_API_URL"] ?? 'http://localhost:3000/api';
 
   const timeout = (ms: number) => {
@@ -16,7 +16,7 @@ const DownloadCSVButton = (props: Props) => {
 
   const downloadCSV = async (props: Props) => {
     const queryString = `?tokenAddress=${props.contractAddress}&blockTimestamp=${props.snapshotDate}`
-    setErrorMessage("")
+    setMessage("File downloading...")
     try {
       // Send GET request to API endpoint with query string
       const apiPromise = fetch(API_URL + queryString).then(response => response.json());
@@ -38,9 +38,10 @@ const DownloadCSVButton = (props: Props) => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        setMessage("")
       };
     } catch(error: any) {    
-      setErrorMessage(error.toString())
+      setMessage(error.toString())
     }  
   };
   return (
@@ -48,8 +49,8 @@ const DownloadCSVButton = (props: Props) => {
       <Button variant="contained" color="primary" onClick={() => downloadCSV(props)}>
         Download CSV
       </Button>
-      <p>
-        {errorMessage ? errorMessage : ""}
+      <p style={{textAlign: 'center'}}>
+        {message ? message : ""}
       </p>
     </div>
     
