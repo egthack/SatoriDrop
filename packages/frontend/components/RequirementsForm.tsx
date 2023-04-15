@@ -18,9 +18,10 @@ type Props = {
   setTokenType: React.Dispatch<React.SetStateAction<"ERC20" | "ERC721">>;
   setSnapshotDate: Dispatch<SetStateAction<Date | null>>;
   setContractAddress: React.Dispatch<React.SetStateAction<string>>;
+  setTokenAmount: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function RequirementsForm({ setTokenType, setSnapshotDate, setContractAddress }: Props) {
+export default function RequirementsForm({ setTokenType, setSnapshotDate, setContractAddress, setTokenAmount }: Props) {
   const [elements, setElements] = useState<JSX.Element[]>([]);
   
   const handleTokenType = (event: any) => {
@@ -33,6 +34,10 @@ export default function RequirementsForm({ setTokenType, setSnapshotDate, setCon
 
   const handleContractAddress = (event: any) => {
     setContractAddress(event.target.value);
+  };
+
+  const handleTokenAmount = (event: any) => {
+    setTokenAmount(event.target.value);
   };
 
   const handleAdd = () => {
@@ -84,6 +89,7 @@ export default function RequirementsForm({ setTokenType, setSnapshotDate, setCon
                       type="number"
                       fullWidth
                       required
+                      onChange={handleTokenAmount}
                     />
                   </Box>
                 </Grid>

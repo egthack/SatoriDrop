@@ -16,12 +16,12 @@ import Review from '../components/Review';
 
 const steps = ['Airdrop Requirements', 'Calculating Importance', 'Download Results'];
 
-function getStepContent(step: number, tokenType: "ERC20" | "ERC721", snapshotDate: Date | null, contractAddress: string, setTokenType:React.Dispatch<React.SetStateAction<"ERC20" | "ERC721">>,  setSnapshotDate: React.Dispatch<React.SetStateAction<Date | null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>) {
+function getStepContent(step: number, tokenType: "ERC20" | "ERC721", snapshotDate: Date | null, contractAddress: string, tokenAmount: number, setTokenType:React.Dispatch<React.SetStateAction<"ERC20" | "ERC721">>,  setSnapshotDate: React.Dispatch<React.SetStateAction<Date | null>>, setContractAddress: React.Dispatch<React.SetStateAction<string>>, setTokenAmount:React.Dispatch<React.SetStateAction<number>>) {
   switch (step) {
     case 0:
-      return <RequirementsForm setTokenType={setTokenType} setSnapshotDate={setSnapshotDate} setContractAddress={setContractAddress} />;
+      return <RequirementsForm setTokenType={setTokenType} setSnapshotDate={setSnapshotDate} setContractAddress={setContractAddress} setTokenAmount={setTokenAmount} />;
     case 1:
-      return <Confirm tokenType={tokenType} snapshotDate={snapshotDate} contractAddress={contractAddress} />;
+      return <Confirm tokenType={tokenType} snapshotDate={snapshotDate} contractAddress={contractAddress} tokenAmount={tokenAmount} />;
     case 2:
       return <Review snapshotDate={snapshotDate} contractAddress={contractAddress} />;
     default:
@@ -36,6 +36,7 @@ export default function Checkout() {
   const [tokenType, setTokenType] = useState<"ERC20" | "ERC721">("ERC721");
   const [snapshotDate, setSnapshotDate] = useState<Date | null>(new Date);
   const [contractAddress, setContractAddress] = useState("");
+  const [tokenAmount, setTokenAmount] = useState<number>(0)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -86,7 +87,7 @@ export default function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, tokenType, snapshotDate, contractAddress, setTokenType, setSnapshotDate, setContractAddress)}
+              {getStepContent(activeStep, tokenType, snapshotDate, contractAddress, tokenAmount, setTokenType, setSnapshotDate, setContractAddress, setTokenAmount)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

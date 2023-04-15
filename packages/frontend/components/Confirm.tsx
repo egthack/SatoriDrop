@@ -6,9 +6,10 @@ type Props = {
   tokenType: "ERC20" | "ERC721";
   snapshotDate: Date | null;
   contractAddress: string;
+  tokenAmount: number
 };
 
-export default function Confirm({ tokenType, snapshotDate, contractAddress }: Props) {
+export default function Confirm({ tokenType, snapshotDate, contractAddress, tokenAmount }: Props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -18,7 +19,7 @@ export default function Confirm({ tokenType, snapshotDate, contractAddress }: Pr
       <div>Token Type: {tokenType}</div>
       <div>SnapshotDate: {snapshotDate!.toString()}</div>
       <div>Token Contract: {contractAddress}</div>
-      <div>Amount: 1</div>
+      <div>Amount: {tokenAmount}</div>
       <div>Priority: 50</div>
     </React.Fragment>
   );
